@@ -14,3 +14,6 @@ buildNumber.properties
 .settings
 .project
 .vscode/
+
+# Project
+**/resources/application-dev.yml
