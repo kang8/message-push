@@ -24,7 +24,9 @@
 
     <modules>
         <module>message-push-email</module>
+        <module>message-push-wechat</module>
     </modules>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
