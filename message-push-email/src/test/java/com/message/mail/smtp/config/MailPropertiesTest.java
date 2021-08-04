@@ -13,9 +13,22 @@ public class MailPropertiesTest {
     @Autowired
     private MailProperties mail;
 
+    private static MailProperties staticMail;
+
+    @Autowired
+    private MailPropertiesTest(MailProperties mail) {
+        MailPropertiesTest.staticMail = mail;
+    }
+
     @Test
     public void testProperties() {
         assertEquals(587, mail.getPort());
+        assertFalse(mail.isDebug());
+    }
+
+    @Test
+    public void testPropertiesForStaticVariable() {
+        assertEquals(587, staticMail.getPort());
         assertFalse(mail.isDebug());
     }
 }
