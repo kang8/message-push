@@ -2,3 +2,9 @@ test:
   message:
 mail:
   recipient:
+  smtp:
+    host:
+    port: 587
+    username:
+    password:
+    from:
