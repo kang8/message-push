@@ -1,4 +1,4 @@
-package com.message.email;
+package com.message;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
