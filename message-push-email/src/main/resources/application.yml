@@ -1,3 +1,5 @@
+test:
+  message: This is test message
 spring:
   profiles:
     active: dev
