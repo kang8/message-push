@@ -13,12 +13,19 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.message.mail.smtp.config.MailProperties;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class Email {
-    private static final String HOST = "smtp.163.com";
-    private static final String PORT = "587";
-    private static final String USERNAME = "@163.com";
-    private static final String PASSWORD = "";
-    private static final boolean IS_DEBUG = Boolean.TRUE;
+    private static MailProperties mail;
+
+    @Autowired
+    private Email(MailProperties mail) {
+        Email.mail = mail;
+    }
 
     private static final String MIMETYPE_TEXT_HTML_UTF_8 = "text/html; charset=utf-8";
 
@@ -30,16 +37,16 @@ public class Email {
     public static void send(List<String> primaryRecipients, List<String> carbonCopyRecipients, String subject,
             String content) throws AddressException, MessagingException {
         Session session = createSession();
-        session.setDebug(IS_DEBUG);
+        session.setDebug(mail.isDebug());
 
         MimeMessage message = new MimeMessage(session);
 
-        message.setFrom(new InternetAddress(USERNAME));
+        message.setFrom(new InternetAddress(mail.getFrom()));
         message.setSubject(subject, StandardCharsets.UTF_8.toString());
         message.setContent(content, MIMETYPE_TEXT_HTML_UTF_8);
         setRecipientsByList(message, Message.RecipientType.TO, primaryRecipients);
 
-        Transport.send(message, USERNAME, PASSWORD);
+        Transport.send(message, mail.getUsername(), mail.getPassword());
     }
 
     private static void setRecipientsByList(MimeMessage message, RecipientType type, List<String> recipients)
@@ -61,8 +68,8 @@ public class Email {
 
     private static Properties prepareProperties() {
         Properties props = new Properties();
-        props.put("mail.smtp.host", HOST);
-        props.put("mail.smtp.port", PORT);
+        props.put("mail.smtp.host", mail.getHost());
+        props.put("mail.smtp.port", mail.getPort());
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.ssl.enable", "true");
         return props;
