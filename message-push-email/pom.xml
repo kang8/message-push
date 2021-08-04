@@ -8,7 +8,7 @@
         <version>1.0</version>
     </parent>
 
-    <groupId>com.message.email</groupId>
+    <groupId>com.message</groupId>
     <artifactId>message-push-email</artifactId>
     <version>1.0</version>
 

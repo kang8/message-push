@@ -1,4 +1,4 @@
-package org.kang.example;
+package com.message.email;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
