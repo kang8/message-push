@@ -5,12 +5,12 @@ import java.util.Collections;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
+import com.message.IntegrationTest;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-public class EmailTest {
+public class EmailTest extends IntegrationTest {
   @Value("${mail.recipient}")
   private String recipient;
 

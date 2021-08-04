@@ -3,12 +3,12 @@ package com.message.mail.smtp.config;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import com.message.IntegrationTest;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-public class MailPropertiesTest {
+public class MailPropertiesTest extends IntegrationTest {
 
     @Autowired
     private MailProperties mail;

@@ -2,7 +2,6 @@ package com.message;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,8 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author kang
  * @date 2021/7/28 11:22
  */
-@SpringBootTest
-class MainTest {
+class MainTest extends IntegrationTest {
     @Value("${test.message}")
     private String message;
 
