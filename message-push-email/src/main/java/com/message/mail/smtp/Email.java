@@ -1,4 +1,4 @@
-package com.message.email;
+package com.message.mail.smtp;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
