@@ -15,6 +15,7 @@ buildNumber.properties
 .project
 .vscode/
 **/.classpath
+.factorypath
 
 # Project
 **/resources/application-dev.yml
