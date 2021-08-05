@@ -1,4 +1,4 @@
-package org.kang.example;
+package com.message.wechat;
 
 /**
  * @author kang
