@@ -17,7 +17,7 @@ public class WeChat {
 
     }
 
-    public String getAccessToken(String cropId, String cropSrcret) {
+    public String getAccessToken(String cropId, String cropSecret) {
         // TODO:
         return new String("");
     }
