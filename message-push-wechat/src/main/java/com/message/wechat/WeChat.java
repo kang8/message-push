@@ -2,8 +2,11 @@ package com.message.wechat;
 
 import java.io.IOException;
 import java.util.Objects;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSerializer;
 import com.message.wechat.config.WeChatProperties;
+import com.message.wechat.entity.BaseMessage;
 import com.message.wechat.entity.MessageResponse;
 import com.message.wechat.entity.TextMessage;
 import com.message.wechat.entity.TokenResponse;
@@ -49,8 +52,19 @@ public class WeChat {
 
     public static WeChatService setUpWeChatService() {
         if (weChatService == null) {
-            Retrofit retrofit = new Retrofit.Builder().baseUrl(weChatProperties.getBaseUrl())
-                    .addConverterFactory(GsonConverterFactory.create()).build();
+            // 对 BaseMapper 进行规定序列化的方式
+            // 因为在 retrofit 中传入父类，传入一个子类，并不会解析子类中的元素
+            // 下述的代码就是自定义父类的序列化方式，使其可以解析子类的元素
+            Gson customizeAdapter = new GsonBuilder().registerTypeAdapter(BaseMessage.class,
+                    (JsonSerializer<BaseMessage>) (src, typeOfSrc, context) -> context
+                            .serialize(src, src.getClass()))
+                    .create();
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(weChatProperties.getBaseUrl())
+                    .addConverterFactory(
+                            GsonConverterFactory.create(customizeAdapter))
+                    .build();
 
             weChatService = retrofit.create(WeChatService.class);
         }

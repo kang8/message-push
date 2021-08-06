@@ -9,7 +9,6 @@ import com.message.IntegrationWeChatText;
 import com.message.wechat.config.WeChatProperties;
 import com.message.wechat.entity.MessageResponse;
 import com.message.wechat.entity.TextMessage;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -41,10 +40,9 @@ public class WeChatTest extends IntegrationWeChatText {
                 .build();
 
         Call<MessageResponse> messageRes = WeChat.sendTextMessage(message);
-        System.out.println(messageRes.request());
         Response<MessageResponse> execute = messageRes.execute();
 
         assertEquals(200, execute.code());
-        System.out.println(execute.body());
+        assertFalse(execute.body().toString().isEmpty());
     }
 }
