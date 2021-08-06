@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import com.message.wechat.config.WeChatProperties;
+import com.message.wechat.entity.MessageResponse;
 import com.message.wechat.entity.TextMessage;
 import com.message.wechat.entity.TokenResponse;
 import com.message.wechat.service.WeChatService;
@@ -23,13 +24,19 @@ public class WeChat {
 
     private static WeChatProperties weChatProperties;
 
+    private static WeChatService weChatService;
+
     @Autowired
     private WeChat(WeChatProperties weChatProperties) {
         WeChat.weChatProperties = weChatProperties;
     }
 
-    public static void sendTextMessage(String accessToken, TextMessage message) {
+    public static Call<MessageResponse> sendTextMessage(TextMessage message) throws IOException {
+        WeChatService weChatService = setUpWeChatService();
 
+        String accessToken =
+                getAccessToken(weChatProperties.getCorpId(), weChatProperties.getCorpSecret());
+        return weChatService.sendMessage(accessToken, message);
     }
 
     public static String getAccessToken(String cropId, String cropSecret) throws IOException {
@@ -41,11 +48,13 @@ public class WeChat {
     }
 
     public static WeChatService setUpWeChatService() {
+        if (weChatService == null) {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(weChatProperties.getBaseUrl())
+                    .addConverterFactory(GsonConverterFactory.create()).build();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(weChatProperties.getBaseUrl())
-                .addConverterFactory(GsonConverterFactory.create()).build();
-
-        return retrofit.create(WeChatService.class);
+            weChatService = retrofit.create(WeChatService.class);
+        }
+        return weChatService;
 
     }
 }

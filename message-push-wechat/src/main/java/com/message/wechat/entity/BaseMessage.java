@@ -1,9 +1,13 @@
 package com.message.wechat.entity;
 
+import java.io.Serializable;
+
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-public class BaseMessage {
+@SuperBuilder
+public class BaseMessage implements Serializable {
     // 成员、部门和标签，必须有一个存在。也就是要有消息接收方。
 
     /**
@@ -29,9 +33,9 @@ public class BaseMessage {
     /**
      * 是否开启重复消息检查
      */
-    private int enable_duplicate_check;
+    private Integer enable_duplicate_check;
     /**
      * 是否重复消息检查的时间间隔
      */
-    private int duplicate_check_interval;
+    private Integer duplicate_check_interval;
 }
