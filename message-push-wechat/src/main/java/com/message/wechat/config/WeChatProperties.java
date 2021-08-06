@@ -10,6 +10,10 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "wechat")
 public class WeChatProperties {
     /**
+     * 企业微信 base-URL
+     */
+    private String baseUrl = "https://qyapi.weixin.qq.com/";
+    /**
      * 企业 ID
      */
     private String corpId;
