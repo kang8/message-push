@@ -1,10 +1,11 @@
 package com.message.wechat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.message.IntegrationWeChatText;
 
 import org.junit.jupiter.api.Test;
+public class WeChatTest extends IntegrationWeChatText {
 
-public class WeChatTest {
     @Test
     void testGetAccessToken() {
         WeChat wechat = new WeChat();
