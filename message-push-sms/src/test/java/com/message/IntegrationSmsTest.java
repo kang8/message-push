@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @date 2021/7/28 11:22
  */
 @SpringBootTest
-class IntegrationSmsTest {
+public class IntegrationSmsTest {
     @Test
     public void testBooleanTrue() {
         assertTrue(Boolean.TRUE);
