@@ -19,3 +19,6 @@ buildNumber.properties
 
 # Project
 **/resources/application-dev.yml
+
+# IDEA
+.idea/
