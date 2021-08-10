@@ -26,6 +26,7 @@
     <modules>
         <module>message-push-email</module>
         <module>message-push-wechat</module>
+        <module>message-push-sms</module>
     </modules>
 
     <dependencies>
