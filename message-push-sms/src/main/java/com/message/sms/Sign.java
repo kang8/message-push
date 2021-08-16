@@ -8,12 +8,13 @@ import com.aliyun.dysmsapi20170525.models.QuerySmsSignResponse;
 import com.message.sms.except.AliyunException;
 
 /**
+ * 签名服务
+ *
  * @author kang
  * @date 2021/8/10 15:53
- * <p>
- * 签名服务
  */
 public class Sign {
+
     public static QuerySmsSignResponse querySmsSign(String signName) {
         Client client = Sms.createClient();
         QuerySmsSignRequest queryRequest = new QuerySmsSignRequest().setSignName(signName);
