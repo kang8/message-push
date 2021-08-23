@@ -32,4 +32,12 @@ public class SmsProperties {
      * 模板 Code
      */
     private String templateCode;
+    /**
+     * 手机号 1
+     */
+    private String phone1;
+    /**
+     * 手机号 2
+     */
+    private String phone2;
 }

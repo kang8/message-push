@@ -13,12 +13,12 @@ import com.message.sms.except.AliyunSmsException;
  */
 public class Send {
 
-    public static void sendSms(String phoneNumber, String signName, String templateCode) {
-        sendSms(phoneNumber, signName, templateCode, null, null, null);
+    public static SendSmsResponse sendSms(String phoneNumber, String signName, String templateCode) {
+        return sendSms(phoneNumber, signName, templateCode, null, null, null);
     }
 
-    public static void sendSms(String phoneNumber, String signName, String templateCode, String templateParam) {
-        sendSms(phoneNumber, signName, templateCode, templateParam, null, null);
+    public static SendSmsResponse sendSms(String phoneNumber, String signName, String templateCode, String templateParam) {
+        return sendSms(phoneNumber, signName, templateCode, templateParam, null, null);
     }
 
     public static SendSmsResponse sendSms(String phoneNumber, String signName, String templateCode, String templateParam, String smsUpExtendCode, String outId) {
@@ -40,12 +40,12 @@ public class Send {
     }
 
 
-    public static void sendBatchSms(String phoneNumberJson, String signNameJson, String templateCode) {
-        sendBatchSms(phoneNumberJson, signNameJson, templateCode, null, null);
+    public static SendBatchSmsResponse sendBatchSms(String phoneNumberJson, String signNameJson, String templateCode) {
+        return sendBatchSms(phoneNumberJson, signNameJson, templateCode, null, null);
     }
 
-    public static void sendBatchSms(String phoneNumberJson, String signNameJson, String templateCode, String templateParamJson) {
-        sendBatchSms(phoneNumberJson, signNameJson, templateCode, templateParamJson, null);
+    public static SendBatchSmsResponse sendBatchSms(String phoneNumberJson, String signNameJson, String templateCode, String templateParamJson) {
+        return sendBatchSms(phoneNumberJson, signNameJson, templateCode, templateParamJson, null);
     }
 
     public static SendBatchSmsResponse sendBatchSms(String phoneNumberJson, String signNameJson, String templateCode, String templateParamJson, String smsUpExtendCodeJson) {
