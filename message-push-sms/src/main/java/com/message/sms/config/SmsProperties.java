@@ -24,4 +24,12 @@ public class SmsProperties {
      * 访问的域名
      */
     private String endpoint = "dysmsapi.aliyuncs.com";
+    /**
+     * 签名名称
+     */
+    private String signName;
+    /**
+     * 模板 Code
+     */
+    private String templateCode;
 }
