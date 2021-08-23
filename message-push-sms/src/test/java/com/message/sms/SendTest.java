@@ -35,7 +35,7 @@ class SendTest {
     }
 
     @Test
-    void test() {
+    void testArrayStreamString() {
         String collect = Collections.nCopies(3, 5)
                 .stream()
                 .map(x -> Integer.toString(x))

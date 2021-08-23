@@ -82,12 +82,10 @@ public class Send {
                     .stream()
                     .collect(Collectors.joining(",", "[", "]"));
             sendBatchSmsRequest.setTemplateParamJson(templateParamJson);
-            System.out.println(templateParamJson);
         }
         if (smsUpExtendCodeList != null && smsUpExtendCodeList.size() > 0) {
             String smsUpExtendCodeJson = JSON.toJSONString(smsUpExtendCodeList);
             sendBatchSmsRequest.setSmsUpExtendCodeJson(smsUpExtendCodeJson);
-            System.out.println(smsUpExtendCodeJson);
         }
 
 

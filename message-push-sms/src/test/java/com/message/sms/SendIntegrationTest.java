@@ -1,5 +1,6 @@
 package com.message.sms;
 
+import com.aliyun.dysmsapi20170525.models.SendBatchSmsResponse;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.message.IntegrationSmsTest;
 import com.message.sms.config.SmsProperties;
@@ -41,17 +42,19 @@ class SendIntegrationTest extends IntegrationSmsTest {
     @Test
     void testSendBatchSmsWithParam() {
         List<String> phoneNumbers = new ArrayList<>() {{
-            add("13083529161");
-            add("13052854811");
-            add("13092628877");
-            add("13151152201");
-            add("13063813990");
+            add(smsProperties.getPhone2());
+            add(smsProperties.getPhone1());
         }};
 
-        Send.sendBatchSms(phoneNumbers,
+        SendBatchSmsResponse response = Send.sendBatchSms(phoneNumbers,
                 smsProperties.getSignName(),
                 smsProperties.getTemplateCode(),
                 Collections.singletonMap("code", Integer.toString(random)));
+
+        System.out.println(response.body.code);
+        System.out.println(response.body.message);
+        System.out.println(response.body.bizId);
+        System.out.println(response.body.requestId);
     }
 
     @Test
