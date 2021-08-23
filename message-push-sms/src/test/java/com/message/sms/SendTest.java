@@ -1,23 +1,16 @@
 package com.message.sms;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.google.gson.JsonObject;
-import com.message.IntegrationSmsTest;
-import com.message.sms.config.SmsProperties;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-class SendTest extends IntegrationSmsTest {
-    @Autowired
-    private SmsProperties smsProperties;
+class SendTest {
 
     @Test
     void sendBatchSms() {
-        String signName = smsProperties.getSignName();
+        String signName = "message-push";
         int random = new Random().nextInt(100000);
         Map<String, Integer> param = Collections.singletonMap("code", random);
 
