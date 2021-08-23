@@ -1,11 +1,15 @@
 package com.message.sms;
 
+import com.alibaba.fastjson.JSON;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendBatchSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendBatchSmsResponse;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.message.sms.except.AliyunSmsException;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author kang
@@ -17,17 +21,19 @@ public class Send {
         return sendSms(phoneNumber, signName, templateCode, null, null, null);
     }
 
-    public static SendSmsResponse sendSms(String phoneNumber, String signName, String templateCode, String templateParam) {
+    public static SendSmsResponse sendSms(String phoneNumber, String signName, String templateCode, Map<String, String> templateParam) {
         return sendSms(phoneNumber, signName, templateCode, templateParam, null, null);
     }
 
-    public static SendSmsResponse sendSms(String phoneNumber, String signName, String templateCode, String templateParam, String smsUpExtendCode, String outId) {
+    public static SendSmsResponse sendSms(String phoneNumber, String signName, String templateCode, Map<String, String> templateParam, String smsUpExtendCode, String outId) {
+        String templateParamJson = JSON.toJSONString(templateParam);
+
         Client client = Sms.createClient();
         SendSmsRequest sendSmsRequest = new SendSmsRequest()
                 .setPhoneNumbers(phoneNumber)
                 .setSignName(signName)
                 .setTemplateCode(templateCode)
-                .setTemplateParam(templateParam)
+                .setTemplateParam(templateParamJson)
                 .setSmsUpExtendCode(smsUpExtendCode)
                 .setOutId(outId);
 
@@ -40,15 +46,21 @@ public class Send {
     }
 
 
-    public static SendBatchSmsResponse sendBatchSms(String phoneNumberJson, String signNameJson, String templateCode) {
-        return sendBatchSms(phoneNumberJson, signNameJson, templateCode, null, null);
+    public static SendBatchSmsResponse sendBatchSms(List<String> phoneNumberList, String signName, String templateCode) {
+        return sendBatchSms(phoneNumberList, signName, templateCode, null, null);
     }
 
-    public static SendBatchSmsResponse sendBatchSms(String phoneNumberJson, String signNameJson, String templateCode, String templateParamJson) {
-        return sendBatchSms(phoneNumberJson, signNameJson, templateCode, templateParamJson, null);
+    public static SendBatchSmsResponse sendBatchSms(List<String> phoneNumberList, String signName, String templateCode, Map<String, String> templateParam) {
+        return sendBatchSms(phoneNumberList, signName, templateCode, null, null);
     }
 
-    public static SendBatchSmsResponse sendBatchSms(String phoneNumberJson, String signNameJson, String templateCode, String templateParamJson, String smsUpExtendCodeJson) {
+    public static SendBatchSmsResponse sendBatchSms(List<String> phoneNumberList, String signName, String templateCode, Map<String, String> templateParam, List<String> smsUpExtendCodeList) {
+//        return sendBatchSms(phoneNumberJson, signName, templateCode, null, null);
+        String phoneNumberJson = "";
+        String signNameJson = "";
+        String templateParamJson = "";
+        String smsUpExtendCodeJson = "";
+
         Client client = Sms.createClient();
         SendBatchSmsRequest sendBatchSmsRequest = new SendBatchSmsRequest()
                 .setPhoneNumberJson(phoneNumberJson)
