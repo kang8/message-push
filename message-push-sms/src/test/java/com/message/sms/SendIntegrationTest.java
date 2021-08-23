@@ -15,11 +15,22 @@ class SendIntegrationTest extends IntegrationSmsTest {
     private final int random = new Random().nextInt(10000);
 
     @Test
-    void sendSms() {
+    void sendSmsWithParam() {
         Map<String, String> templateParamJson = Collections.singletonMap("code", Integer.toString(random));
 
         SendSmsResponse sendSmsResponse = Send.sendSms(smsProperties.getPhone2(), smsProperties.getSignName(),
                 smsProperties.getTemplateCode(), templateParamJson);
+
+        System.out.println(sendSmsResponse.body.code);
+        System.out.println(sendSmsResponse.body.message);
+        System.out.println(sendSmsResponse.body.bizId);
+        System.out.println(sendSmsResponse.body.requestId);
+    }
+
+    @Test
+    void sendSms() {
+        SendSmsResponse sendSmsResponse = Send.sendSms(smsProperties.getPhone2(), smsProperties.getSignName(),
+                smsProperties.getTemplateCode());
 
         System.out.println(sendSmsResponse.body.code);
         System.out.println(sendSmsResponse.body.message);

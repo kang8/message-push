@@ -35,12 +35,23 @@ class SendTest {
     }
 
     @Test
-    void testMap() {
-        Map<String, String> m = new HashMap<>() {{
-            put("hello", "world");
-            put("hfllo", "world");
-        }};
+    void test() {
+        String collect = Collections.nCopies(3, 5)
+                .stream()
+                .map(x -> Integer.toString(x))
+                .collect(Collectors.joining());
+        System.out.println(collect);
 
-        System.out.println(JSON.toJSONString(m));
+        collect = Collections.nCopies(3, 5)
+                .stream()
+                .map(x -> Integer.toString(x))
+                .collect(Collectors.joining(", "));
+        System.out.println(collect);
+
+        collect = Collections.nCopies(3, 5)
+                .stream()
+                .map(x -> Integer.toString(x))
+                .collect(Collectors.joining(", ", "[", "]"));
+        System.out.println(collect);
     }
 }
