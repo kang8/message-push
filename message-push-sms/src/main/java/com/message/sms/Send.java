@@ -29,7 +29,6 @@ public class Send {
 
     public static SendSmsResponse sendSms(String phoneNumber, String signName, String templateCode, Map<String, String> templateParam,
                                           String smsUpExtendCode, String outId) {
-        String templateParamJson = JSON.toJSONString(templateParam);
 
         Client client = Sms.createClient();
         SendSmsRequest sendSmsRequest = new SendSmsRequest()
@@ -38,6 +37,7 @@ public class Send {
                 .setTemplateCode(templateCode);
 
         if (templateParam != null) {
+            String templateParamJson = JSON.toJSONString(templateParam);
             sendSmsRequest.setTemplateParam(templateParamJson);
         }
         if (smsUpExtendCode != null) {
