@@ -8,8 +8,10 @@ import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.message.sms.except.AliyunSmsException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author kang
@@ -25,17 +27,25 @@ public class Send {
         return sendSms(phoneNumber, signName, templateCode, templateParam, null, null);
     }
 
-    public static SendSmsResponse sendSms(String phoneNumber, String signName, String templateCode, Map<String, String> templateParam, String smsUpExtendCode, String outId) {
+    public static SendSmsResponse sendSms(String phoneNumber, String signName, String templateCode, Map<String, String> templateParam,
+                                          String smsUpExtendCode, String outId) {
         String templateParamJson = JSON.toJSONString(templateParam);
 
         Client client = Sms.createClient();
         SendSmsRequest sendSmsRequest = new SendSmsRequest()
                 .setPhoneNumbers(phoneNumber)
                 .setSignName(signName)
-                .setTemplateCode(templateCode)
-                .setTemplateParam(templateParamJson)
-                .setSmsUpExtendCode(smsUpExtendCode)
-                .setOutId(outId);
+                .setTemplateCode(templateCode);
+
+        if (templateParam != null) {
+            sendSmsRequest.setTemplateParam(templateParamJson);
+        }
+        if (smsUpExtendCode != null) {
+            sendSmsRequest.setSmsUpExtendCode(smsUpExtendCode);
+        }
+        if (outId != null) {
+            sendSmsRequest.setOutId(outId);
+        }
 
         try {
             return client.sendSms(sendSmsRequest);
@@ -51,23 +61,35 @@ public class Send {
     }
 
     public static SendBatchSmsResponse sendBatchSms(List<String> phoneNumberList, String signName, String templateCode, Map<String, String> templateParam) {
-        return sendBatchSms(phoneNumberList, signName, templateCode, null, null);
+        return sendBatchSms(phoneNumberList, signName, templateCode, templateParam, null);
     }
 
-    public static SendBatchSmsResponse sendBatchSms(List<String> phoneNumberList, String signName, String templateCode, Map<String, String> templateParam, List<String> smsUpExtendCodeList) {
-//        return sendBatchSms(phoneNumberJson, signName, templateCode, null, null);
-        String phoneNumberJson = "";
-        String signNameJson = "";
-        String templateParamJson = "";
-        String smsUpExtendCodeJson = "";
+    public static SendBatchSmsResponse sendBatchSms(List<String> phoneNumberList, String signName, String templateCode,
+                                                    Map<String, String> templateParam, List<String> smsUpExtendCodeList) {
+        int phoneSize = phoneNumberList.size();
+
+        String phoneNumberJson = JSON.toJSONString(phoneNumberList);
+        String signNameJson = JSON.toJSONString(Collections.nCopies(phoneSize, signName));
 
         Client client = Sms.createClient();
         SendBatchSmsRequest sendBatchSmsRequest = new SendBatchSmsRequest()
                 .setPhoneNumberJson(phoneNumberJson)
                 .setSignNameJson(signNameJson)
-                .setTemplateCode(templateCode)
-                .setTemplateParamJson(templateParamJson)
-                .setSmsUpExtendCodeJson(smsUpExtendCodeJson);
+                .setTemplateCode(templateCode);
+
+        if (templateParam != null) {
+            String templateParamJson = Collections.nCopies(phoneSize, JSON.toJSONString(templateParam))
+                    .stream()
+                    .collect(Collectors.joining(",", "[", "]"));
+            sendBatchSmsRequest.setTemplateParamJson(templateParamJson);
+            System.out.println(templateParamJson);
+        }
+        if (smsUpExtendCodeList != null && smsUpExtendCodeList.size() > 0) {
+            String smsUpExtendCodeJson = JSON.toJSONString(smsUpExtendCodeList);
+            sendBatchSmsRequest.setSmsUpExtendCodeJson(smsUpExtendCodeJson);
+            System.out.println(smsUpExtendCodeJson);
+        }
+
 
         try {
             return client.sendBatchSms(sendBatchSmsRequest);

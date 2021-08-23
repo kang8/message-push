@@ -6,17 +6,16 @@ import com.message.sms.config.SmsProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 class SendIntegrationTest extends IntegrationSmsTest {
     @Autowired
     private SmsProperties smsProperties;
 
+    private final int random = new Random().nextInt(10000);
+
     @Test
     void sendSms() {
-        int random = new Random().nextInt(10000);
         Map<String, String> templateParamJson = Collections.singletonMap("code", Integer.toString(random));
 
         SendSmsResponse sendSmsResponse = Send.sendSms(smsProperties.getPhone2(), smsProperties.getSignName(),
@@ -26,5 +25,36 @@ class SendIntegrationTest extends IntegrationSmsTest {
         System.out.println(sendSmsResponse.body.message);
         System.out.println(sendSmsResponse.body.bizId);
         System.out.println(sendSmsResponse.body.requestId);
+    }
+
+    @Test
+    void testSendBatchSmsWithParam() {
+        List<String> phoneNumbers = new ArrayList<>() {{
+            add("13083529161");
+            add("13052854811");
+            add("13092628877");
+            add("13151152201");
+            add("13063813990");
+        }};
+
+        Send.sendBatchSms(phoneNumbers,
+                smsProperties.getSignName(),
+                smsProperties.getTemplateCode(),
+                Collections.singletonMap("code", Integer.toString(random)));
+    }
+
+    @Test
+    void testSendBatchSms() {
+        List<String> phoneNumbers = new ArrayList<>() {{
+            add("13083529161");
+            add("13052854811");
+            add("13092628877");
+            add("13151152201");
+            add("13063813990");
+        }};
+
+        Send.sendBatchSms(phoneNumbers,
+                smsProperties.getSignName(),
+                smsProperties.getTemplateCode());
     }
 }

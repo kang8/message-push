@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 class SendTest {
 
     @Test
-    void sendBatchSms() {
+    void testSendBatchSmsPrevious() {
         String signName = "message-push";
         int random = new Random().nextInt(100000);
         Map<String, Integer> param = Collections.singletonMap("code", random);
