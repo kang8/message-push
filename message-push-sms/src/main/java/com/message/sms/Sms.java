@@ -3,7 +3,7 @@ package com.message.sms;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.teaopenapi.models.Config;
 import com.message.sms.config.SmsProperties;
-import com.message.sms.except.AliyunException;
+import com.message.sms.except.AliyunSmsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +29,7 @@ public class Sms {
         try {
             return new Client(config);
         } catch (Exception e) {
-            throw new AliyunException("创建 SMS Client 失败");
+            throw new AliyunSmsException("创建 SMS Client 失败");
         }
     }
 }

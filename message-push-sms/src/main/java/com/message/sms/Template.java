@@ -3,7 +3,7 @@ package com.message.sms;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.*;
 import com.message.sms.entity.TemplateEntity;
-import com.message.sms.except.AliyunException;
+import com.message.sms.except.AliyunSmsException;
 
 /**
  * 短信模板
@@ -24,7 +24,7 @@ public class Template {
         try {
             return client.addSmsTemplate(addRequest);
         } catch (Exception e) {
-            throw new AliyunException("新增短信模板失败", e);
+            throw new AliyunSmsException("新增短信模板失败", e);
         }
     }
 
@@ -35,7 +35,7 @@ public class Template {
         try {
             client.deleteSmsTemplate(deleteRequest);
         } catch (Exception e) {
-            throw new AliyunException("删除短信模板错误", e);
+            throw new AliyunSmsException("删除短信模板错误", e);
         }
     }
 
@@ -51,7 +51,7 @@ public class Template {
         try {
             return client.modifySmsTemplate(modifyRequest);
         } catch (Exception e) {
-            throw new AliyunException("修改短信模板失败", e);
+            throw new AliyunSmsException("修改短信模板失败", e);
         }
     }
 
@@ -62,7 +62,7 @@ public class Template {
         try {
             return client.querySmsTemplate(queryRequest);
         } catch (Exception e) {
-            throw new AliyunException("查询短信模板失败", e);
+            throw new AliyunSmsException("查询短信模板失败", e);
         }
     }
 }

@@ -5,7 +5,7 @@ import com.aliyun.dysmsapi20170525.models.DeleteSmsSignRequest;
 import com.aliyun.dysmsapi20170525.models.DeleteSmsSignResponse;
 import com.aliyun.dysmsapi20170525.models.QuerySmsSignRequest;
 import com.aliyun.dysmsapi20170525.models.QuerySmsSignResponse;
-import com.message.sms.except.AliyunException;
+import com.message.sms.except.AliyunSmsException;
 
 /**
  * 签名服务
@@ -22,7 +22,7 @@ public class Sign {
         try {
             return client.querySmsSign(queryRequest);
         } catch (Exception e) {
-            throw new AliyunException("查询 SMS sign 错误", e);
+            throw new AliyunSmsException("查询 SMS sign 错误", e);
         }
     }
 
@@ -33,7 +33,7 @@ public class Sign {
         try {
             return client.deleteSmsSign(deleteRequest);
         } catch (Exception e) {
-            throw new AliyunException("删除 SMS sign 错误", e);
+            throw new AliyunSmsException("删除 SMS sign 错误", e);
         }
     }
 }
